@@ -13,6 +13,12 @@ OUT_PATH = "../data/sample_processed.csv"
 
 # Manually mapped labels for the top topics found by BERTopic.
 # -1 is always the "outlier / could not cluster" bucket.
+#
+# NOTE: BERTopic is not seeded here, so re-running this script can produce
+# different topic ids and these labels would then point at the wrong topics.
+# The labels match the run saved in data/sample_processed.csv (63 topics:
+# ids 0-18 are named below, ids 19-62 were never named).
+# To re-run, check each topic's keywords first (get_topic_keywords) and update this map.
 TOPIC_LABELS = {
     -1: "Miscellaneous/Unclustered",
     0: "General Positive - Shopping Experience",
@@ -44,7 +50,7 @@ def run_topic_model(df: pd.DataFrame):
     topics, _ = topic_model.fit_transform(docs)
 
     df["topic_id"] = topics
-    df["topic_label"] = df["topic_id"].map(TOPIC_LABELS).fillna("Unlabeled")
+    df["topic_label"] = df["topic_id"].map(TOPIC_LABELS).fillna("Other / Unlabeled")
 
     return df, topic_model
 

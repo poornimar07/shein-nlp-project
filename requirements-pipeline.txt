@@ -1,0 +1,6 @@
+# Only needed to re-run the pipeline in src/ (the dashboard needs requirements.txt only)
+pandas>=2.2
+vaderSentiment>=3.3.2
+bertopic>=0.16
+scikit-learn>=1.5
+plotly>=5.24
